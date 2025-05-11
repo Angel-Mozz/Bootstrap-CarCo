@@ -42,6 +42,11 @@
                             style="color: aliceblue; font-weight: 100; font-size: 32px; margin-right: 24px;">Contact
                         </a>
                     </li>
+                    <li class="nav-item"></li>
+                        <a class="nav-link" href="./login.html"
+                            style="color: aliceblue; font-weight: 100; font-size: 32px; margin-right: 24px;">Sign In
+                        </a>
+                    </li>
 
                 </ul>
 
@@ -63,7 +68,7 @@
     </div>
 
 
-    <form class="container" style="padding-left: 10%; padding-right: 10%; margin-top: 64px;" >
+    <form class="container" style="padding-left: 10%; padding-right: 10%; margin-top: 64px;" id="formData" >
 
         <div class="row mb-4">
             <div class="col">
@@ -99,21 +104,13 @@
             <textarea class="form-control" id="addInfo" rows="4" name="addInfo"></textarea>
             <label class="form-label" for="addInfo">Additional information</label>
         </div>
-    
-
-        <div class="form-check d-flex justify-content-center mb-4">
-            <input class="form-check-input me-2" type="checkbox" value="true" id="checkbox" checked name="checkbox"
-                style="background-color: transparent; border-color: white;" />
-            <label class="form-check-label" for="checkbox" style="color: white;"> Subscribe to our newsletter </label>
-        </div>
-    
-        <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4 startJourneyButton"
-            style="display: block; margin: 0 auto; border-color: white;">
-            Start your journey
-        </button>
-
 
     </form>
+
+    <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block mb-4 startJourneyButton"
+        style="display: block; margin: 0 auto; border-color: white;" onclick="sendForm()">
+        Start your journey
+    </button>
 
 
     <footer class="text-center text-white" style="background-color: rgb(13, 15, 23); margin-top: 64px;">
@@ -154,3 +151,50 @@
 </body>
 
 </html>
+
+<script>
+
+    function isEmail(email) {
+
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+
+    async function sendForm() {
+        const firstName = document.getElementById("name").value
+        const lastName = document.getElementById("lastName").value
+        const address = document.getElementById("address").value
+        const email = document.getElementById("email").value
+        const phone = document.getElementById("phone").value
+        const info = document.getElementById("addInfo").value
+
+       const required = [firstName, lastName, email]
+
+       if(required.some(require => require.trim() === "")){
+            return alert("First Name, Last Name and Email are REQUIRED");
+       }
+
+       if (!isEmail(email)) {
+            return alert("Not a valid email")
+        }
+
+
+        const rawResponse = await fetch('https://backend-carco.onrender.com/api/carco/forms', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ firstName: firstName, lastName: lastName, address: address, email: email, phone: phone, info: info })
+        })
+
+        const formData = rawResponse.json()
+
+        if (!rawResponse.ok){
+            return alert("Oops, something went wrong, try again later")
+        }
+
+        document.getElementById("formData").reset();
+        return alert ("Information sent!!")
+
+    }
+</script>

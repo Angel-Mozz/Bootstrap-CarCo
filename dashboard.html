@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <link rel="icon" href="./assets/Captura de pantalla 2025-02-21 a la(s) 19.49.50.png" type="image/png">
+    <link rel="stylesheet" href="style.css">
+    <title>Car Co About Us</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+
+
+            <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+                <h2 class="text-white">Dashboard</h2>
+                <div class="accordion" id="sidebarAccordion">
+
+                    <div class="accordion-item bg-transparent border-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-white" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#carsCollapse">
+                                Cars
+                            </button>
+                        </h2>
+                        <div id="carsCollapse" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div class="accordion-body">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="#" onclick="openModalCreateCar()">Create Car</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#" onclick="getCars()">Read Cars</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#" onclick="openModalUpdateCar()">Update Car</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#" onclick="openModalDeleteCar()">Delete Car</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item bg-transparent border-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-white" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#usersCollapse">
+                                Users
+                            </button>
+                        </h2>
+                        <div id="usersCollapse" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div class="accordion-body">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="#">Create User</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Read Users</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Update User</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Delete User</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="accordion-item bg-transparent border-0">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-dark text-white" type="button"
+                                data-bs-toggle="collapse" data-bs-target="#formsCollapse">
+                                Forms
+                            </button>
+                        </h2>
+                        <div id="formsCollapse" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+                            <div class="accordion-body">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item"><a class="nav-link" href="#">Read Forms</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Update Form</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#">Delete Form</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="position: absolute; bottom: 0; margin-bottom: 20px; ">
+                        <button type="button" class="btn btn-danger" onclick="logout()">Log Out</button>
+                    </div>
+
+            </nav>
+
+            <div class="modal fade" id="loadingModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static"
+                data-bs-keyboard="false">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-transparent border-0 shadow-none">
+                        <div class="modal-body text-center">
+                            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-3 text-white">Loading...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal fade" id="carModal" tabindex="-1" aria-hidden="true"
+                data-bs-keyboard="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-transparent border-0 shadow-none">
+                        <div class="modal-body text-center">
+                            <div class="">
+                                <form id="carModalF">
+                                    <div class="mb-3">
+                                        <label for="modalModel" class="form-label">Car Model</label>
+                                        <input type="email" class="form-control" id="modalModel">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="modalPrice" class="form-label">Price</label>
+                                        <input type="text" class="form-control" id="modalPrice" aria-describedby="moneyComment">
+                                        <div id="moneyComment" class="form-text" style="color: gray;">Write in format 10,000 </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="modalTrade" class="form-label">Trade</label>
+                                        <input type="text" class="form-control" id="modalTrade" aria-describedby="moneyComment">
+                                        <div id="moneyComment" class="form-text" style="color: gray;">Write in format 10,000 </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="modalImgURL" class="form-label">Image(URL)</label>
+                                        <input type="text" class="form-control" id="modalImgURL" aria-describedby="urlComment">
+                                        <div id="urlComment" class="form-text" style="color: gray;">Write only URLS </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select" aria-label="Default select example" id="modalType">
+                                            <option value="" selected disabled>Type</option>
+                                            <option value="">All</option>
+                                            <option value="sedan">Sedan</option>
+                                            <option value="sport">Sport</option>
+                                        </select>
+                                    </div>
+                                        
+                                </form>
+                                <button type="submit" class="btn btn-primary" onclick="createCar()">Submit</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="modal fade" id="updateCarModal" tabindex="-1" aria-hidden="true" data-bs-keyboard="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-transparent border-0 shadow-none">
+                        <div class="modal-body text-center">
+                            <div class="">
+                                <form id="updateCarModalF">
+                                    <div class="mb-3">
+                                        <label for="updateModalId" class="form-label">Id</label>
+                                        <input type="email" class="form-control" id="updateModalId">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="updateModalModel" class="form-label">Car Model</label>
+                                        <input type="email" class="form-control" id="updateModalModel">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="updateModalPrice" class="form-label">Price</label>
+                                        <input type="text" class="form-control" id="updateModalPrice" aria-describedby="moneyComment">
+                                        <div id="moneyComment" class="form-text" style="color: gray;">Write in format 10,000 </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="updateModalTrade" class="form-label">Trade</label>
+                                        <input type="text" class="form-control" id="updateModalTrade" aria-describedby="updateMoneyComment">
+                                        <div id="moneyComment" class="form-text" style="color: gray;">Write in format 10,000 </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="updateModalImgURL" class="form-label">Image(URL)</label>
+                                        <input type="text" class="form-control" id="updateModalImgURL" aria-describedby="urlComment">
+                                        <div id="urlComment" class="form-text" style="color: gray;">Write only URLS </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select" aria-label="Default select example" id="updateModalType">
+                                            <option value="" selected disabled>Type</option>
+                                            <option value="">All</option>
+                                            <option value="sedan">Sedan</option>
+                                            <option value="sport">Sport</option>
+                                        </select>
+                                    </div>
+            
+                                </form>
+                                <button type="submit" class="btn btn-primary" onclick="editCar()">Update</button>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" id="deleteCarModal" tabindex="-1" aria-hidden="true" data-bs-keyboard="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-transparent border-0 shadow-none">
+                        <div class="modal-body text-center">
+                            <div class="">
+                                <form id="deleteCarModalF">
+                                    <div class="mb-3">
+                                        <label for="deleteModalId" class="form-label">Id</label>
+                                        <input type="email" class="form-control" id="deleteModalId">
+                                    </div>
+                                </form>
+                                <button type="submit" class="btn btn-primary" onclick="deleteCar()">Delete</button>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 " style="margin-top: 28px;">
+                <h1>Welcome to the Car Co Users Dashboard</h1>
+                <p>Select a section from the sidebar to manage the data.</p>
+
+                <div>
+                    <div class="row" id="carContainer"></div>
+                </div>
+            </main>
+
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+<script>
+
+    const token = localStorage.getItem("token")
+    if(!token){
+        window.location.href = "login.html"
+    }
+
+    function logout(){
+        localStorage.removeItem('token')
+        window.location.href = "login.html"
+    }
+
+    //CARS
+
+    async function getCars(){
+        
+        try{
+
+            const rawResponse = await fetch("https://backend-carco.onrender.com/api/carco/")
+            const carsData = (await rawResponse.json()).cars
+
+            const container = document.getElementById("carContainer")
+            container.innerHTML = ""
+
+            carsData.forEach(car => {
+                const card = document.createElement("div")
+                card.className = "card col-12 col-md-4"
+                card.style.width = "18rem"
+                card.style.marginTop = "10px"
+                card.innerHTML = `
+                    <img src="${car.image}" class="card-img-top img-fluid" style="object-fit: cover; height: 200px;" alt="${car.model}">
+                        <div class="card-body">
+                            <span class="card-id"> ${car._id}</span>
+                            <h5 class="card-title">${car.model}</h5>
+                            <h6 class="card-subtitle mb-2">Price: $${car.price}</h6>
+                            <h6 class="card-subtitle mb-2">Trade: $${car.trade}</h6>
+                        </div>
+                        `;
+                container.appendChild(card)
+            })
+    
+        
+        } catch(error){
+            console.error("Error:", error);
+            alert("Error ");
+        } 
+
+    }
+
+    function openModalCreateCar(){
+        
+        const carModal = new bootstrap.Modal(document.getElementById("carModal"))
+        carModal.show()
+
+    }
+
+    async function createCar() {
+        const token = localStorage.getItem("token");
+
+        const model = document.getElementById("modalModel").value
+        const price = document.getElementById("modalPrice").value
+        const trade = document.getElementById("modalTrade").value
+        const image = document.getElementById("modalImgURL").value
+        const type = document.getElementById("modalType").value
+
+        try {
+            if (model === "" || price === "" || trade === "" || image === "") {
+                return alert("You are missing information")
+            }
+
+            const rawResponse = await fetch('https://backend-carco.onrender.com/api/carco/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ model: model, price: price, trade: trade, image: image, type: type })
+            })
+
+            const carData = await rawResponse.json()
+
+            if (!rawResponse.ok) {
+                return alert(userData.message)
+            }
+            else{
+                getCars()
+                document.getElementById("carModalF").reset();
+                return alert("Vehicle added succesfully")
+                
+            }
+
+        } catch (error) {
+            console.error("Error:", error)
+            alert("Error ")
+        } 
+        
+    }
+
+    function openModalUpdateCar() {
+
+            const carModal = new bootstrap.Modal(document.getElementById("updateCarModal"))
+            carModal.show()
+
+        }
+
+    async function editCar(){
+        const token = localStorage.getItem("token");
+
+        const id = document.getElementById("updateModalId").value
+        const model = document.getElementById("updateModalModel").value
+        const price = document.getElementById("updateModalPrice").value
+        const trade = document.getElementById("updateModalTrade").value
+        const image = document.getElementById("updateModalImgURL").value
+        const type = document.getElementById("updateModalType").value
+
+        try {
+            if (id === "" || model === "" || price === "" || trade === "" || image === "") {
+                return alert("You are missing information")
+            }
+
+            const rawResponse = await fetch(`https://backend-carco.onrender.com/api/carco/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ model: model, price: price, trade: trade, image: image, type: type })
+            })
+
+            const carData = await rawResponse.json()
+
+            if (!rawResponse.ok) {
+                return alert(userData.message)
+            }
+            else {
+                getCars()
+                document.getElementById("updateCarModalF").reset();
+                return alert("Vehicle updated succesfully")
+            }
+
+        } catch (error) {
+            console.error("Error:", error)
+            alert("Error ")
+        } 
+
+    }
+
+    function openModalDeleteCar() {
+
+            const carModal = new bootstrap.Modal(document.getElementById("deleteCarModal"))
+            carModal.show()
+
+        }
+
+    async function deleteCar(){
+        const token = localStorage.getItem("token");
+
+        const id = document.getElementById("deleteModalId").value
+
+        try {
+            if (id === "") {
+                return alert("You are missing information")
+            }
+
+            const rawResponse = await fetch(`https://backend-carco.onrender.com/api/carco/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+
+            const carData = await rawResponse.json()
+
+            if (!rawResponse.ok) {
+                return alert(userData.message)
+            }
+            else {
+                getCars()
+                document.getElementById("deleteCarModalF").reset();
+                return alert("Vehicle deleted succesfully")
+            }
+
+        } catch (error) {
+            console.error("Error:", error)
+            alert("Error ")
+        } 
+
+    }
+
+    //USERS
+    async function getUsers() {
+
+    }
+
+    async function createUser() {
+
+    }
+
+    async function editUser() {
+
+    }
+
+    async function deleteUser() {
+
+    }
+
+    //FORMS
+    async function getForms() {
+
+    }
+
+    async function deleteForms() {
+
+    }
+
+
+</script>

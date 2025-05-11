@@ -60,6 +60,19 @@ body{
     color: black !important;
 }
 
+ .sidebar {
+     height: 100vh;
+     background-color: #1b1c1d;
+     padding: 20px;
+ }
+
+ .sidebar .nav-link {
+     color: white;
+ }
+
+ .sidebar .nav-link:hover {
+     background-color: #495057;
+ }
 
 
 
