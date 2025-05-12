@@ -127,7 +127,9 @@
         const userData = await rawResponse.json()
 
         if(!rawResponse.ok){
+            window.location.href = 'login.html'
             return alert(userData.message)
+            
         }
 
         localStorage.setItem('token', userData.token)
@@ -136,7 +138,6 @@
     } catch(error){
         console.error("Error:", error)
         alert("Error ")
-        window.location.href = 'login.html'
     } finally {
 
         loadingModalInstance.hide()

@@ -52,10 +52,10 @@
                         <div id="usersCollapse" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                             <div class="accordion-body">
                                 <ul class="nav flex-column">
-                                    <li class="nav-item"><a class="nav-link" href="#">Create User</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#" onclick="openModalCreateUser()">Create User</a></li>
                                     <li class="nav-item"><a class="nav-link" href="#" onclick="getUsers()">Read Users</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Update User</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Delete User</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#" onclick="openModalUpdateUser()">Update User</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#" onclick="openModalDeleteUser()">Delete User</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -72,9 +72,8 @@
                         <div id="formsCollapse" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
                             <div class="accordion-body">
                                 <ul class="nav flex-column">
-                                    <li class="nav-item"><a class="nav-link" href="#">Read Forms</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Update Form</a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Delete Form</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#" onclick="getForms()">Read Forms</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="#" onclick="openModalDeleteForms()">Delete Form</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -109,7 +108,7 @@
                                 <form id="carModalF">
                                     <div class="mb-3">
                                         <label for="modalModel" class="form-label">Car Model</label>
-                                        <input type="email" class="form-control" id="modalModel">
+                                        <input type="text" class="form-control" id="modalModel">
                                     </div>
                                     <div class="mb-3">
                                         <label for="modalPrice" class="form-label">Price</label>
@@ -154,11 +153,11 @@
                                 <form id="updateCarModalF">
                                     <div class="mb-3">
                                         <label for="updateModalId" class="form-label">Id</label>
-                                        <input type="email" class="form-control" id="updateModalId">
+                                        <input type="text" class="form-control" id="updateModalId">
                                     </div>
                                     <div class="mb-3">
                                         <label for="updateModalModel" class="form-label">Car Model</label>
-                                        <input type="email" class="form-control" id="updateModalModel">
+                                        <input type="text" class="form-control" id="updateModalModel">
                                     </div>
                                     <div class="mb-3">
                                         <label for="updateModalPrice" class="form-label">Price</label>
@@ -201,7 +200,7 @@
                                 <form id="deleteCarModalF">
                                     <div class="mb-3">
                                         <label for="deleteModalId" class="form-label">Id</label>
-                                        <input type="email" class="form-control" id="deleteModalId">
+                                        <input type="text" class="form-control" id="deleteModalId">
                                     </div>
                                 </form>
                                 <button type="submit" class="btn btn-primary" onclick="deleteCar()">Delete</button>
@@ -211,6 +210,133 @@
                     </div>
                 </div>
             </div>
+
+            
+
+            
+            <div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true" data-bs-keyboard="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content bg-transparent border-0 shadow-none">
+                        <div class="modal-body text-center">
+                            <div class="">
+                                <form id="userModalF">
+                                    <div class="mb-3">
+                                        <label for="modalUserName" class="form-label">Name</label>
+                                        <input type="text" class="form-control" id="modalUserName">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="modalUserEmail" class="form-label">Email</label>
+                                        <input type="email" class="form-control" id="modalUserEmail">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="modalUserPassword" class="form-label">password</label>
+                                        <input type="password" class="form-control" id="modalUserPassword"
+                                            aria-describedby="updateMoneyComment">
+                                    </div>
+                                    <div class="mb-3">
+                                        <select class="form-select" aria-label="Default select example" id="modalIsAdmin">
+                                            <option value="" selected disabled>Select One</option>
+                                            <option value="true">True</option>
+                                            <option value="false">False</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3"></div>
+                                        <select class="form-select" aria-label="Default select example" id="modalIsContributor">
+                                            <option value="" selected disabled>Select One</option>
+                                            <option value="true">True</option>
+                                            <option value="false">False</option>
+                                        </select>
+                                    </div>
+            
+                                </form>
+                                <button type="submit" class="btn btn-primary" onclick="createUser()">Create</button>
+                            </div>
+            
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="userUpdateModal" tabindex="-1" aria-hidden="true" data-bs-keyboard="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content bg-transparent border-0 shadow-none">
+                            <div class="modal-body text-center">
+                                <div class="">
+                                    <form id="userUpdateModalF">
+                                        <div class="mb-3">
+                                            <label for="modalUpdateUserId" class="form-label">Id</label>
+                                            <input type="text" class="form-control" id="modalUpdateUserId">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="modalUpdateUserName" class="form-label">Name</label>
+                                            <input type="text" class="form-control" id="modalUpdateUserName">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="modalUpdateUserEmail" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="modalUpdateUserEmail">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="modalUpdateUserPassword" class="form-label">password</label>
+                                            <input type="password" class="form-control" id="modalUpdateUserPassword"
+                                                aria-describedby="updateMoneyComment">
+                                        </div>
+                                        <div class="mb-3">
+                                            <select class="form-select" aria-label="Default select example" id="modalUpdateIsAdmin">
+                                                <option value="" selected disabled>Select One</option>
+                                                <option value="true">True</option>
+                                                <option value="false">False</option>
+                                            </select>
+                                        </div>
+                                        <div class="mb-3"></div>
+                                        <select class="form-select" aria-label="Default select example" id="modalUpdateIsContributor">
+                                            <option value="" selected disabled>Select One</option>
+                                            <option value="true">True</option>
+                                            <option value="false">False</option>
+                                        </select>
+                                </div>
+                
+                                </form>
+                                <button type="submit" class="btn btn-primary" onclick="editUser()">Update</button>
+                            </div>
+                
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="deleteUserModal" tabindex="-1" aria-hidden="true" data-bs-keyboard="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content bg-transparent border-0 shadow-none">
+                            <div class="modal-body text-center">
+                                <div class="">
+                                    <form id="deleteUserModalF">
+                                        <div class="mb-3">
+                                            <label for="deleteUserModalId" class="form-label">Id</label>
+                                            <input type="text" class="form-control" id="deleteUserModalId">
+                                        </div>
+                                    </form>
+                                    <button type="submit" class="btn btn-primary" onclick="deleteUser()">Delete</button>
+                                </div>
+                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="deleteFormsModal" tabindex="-1" aria-hidden="true" data-bs-keyboard="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content bg-transparent border-0 shadow-none">
+                            <div class="modal-body text-center">
+                                <div class="">
+                                    <form id="deleteFormsModalF">
+                                        <div class="mb-3">
+                                            <label for="deleteFormsModalId" class="form-label">Id</label>
+                                            <input type="text" class="form-control" id="deleteFormsModalId">
+                                        </div>
+                                    </form>
+                                    <button type="submit" class="btn btn-primary" onclick="deleteForms()">Delete</button>
+                                </div>
+                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 " style="margin-top: 28px;">
                 <h1>Welcome to the Car Co Users Dashboard</h1>
@@ -310,7 +436,7 @@
             const carData = await rawResponse.json()
 
             if (!rawResponse.ok) {
-                return alert(userData.message)
+                return alert(carData.message)
             }
             else{
                 getCars()
@@ -343,10 +469,16 @@
         const image = document.getElementById("updateModalImgURL").value
         const type = document.getElementById("updateModalType").value
 
+        const carPayload = {};
+
+        if (model !== "") carPayload.model = model;
+        if (price !== "") carPayload.price = price;
+        if (trade !== "") carPayload.trade = trade;
+        if (image !== "") carPayload.image = image;
+        if (type !== "") carPayload.type = type;
+
         try {
-            if (id === "" || model === "" || price === "" || trade === "" || image === "") {
-                return alert("You are missing information")
-            }
+            
 
             const rawResponse = await fetch(`https://backend-carco.onrender.com/api/carco/${id}`, {
                 method: 'PUT',
@@ -354,13 +486,13 @@
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`
                 },
-                body: JSON.stringify({ model: model, price: price, trade: trade, image: image, type: type })
+                body: JSON.stringify(carPayload)
             })
 
             const carData = await rawResponse.json()
 
             if (!rawResponse.ok) {
-                return alert(userData.message)
+                return alert(carData.message)
             }
             else {
                 getCars()
@@ -403,7 +535,7 @@
             const carData = await rawResponse.json()
 
             if (!rawResponse.ok) {
-                return alert(userData.message)
+                return alert(carData.message)
             }
             else {
                 getCars()
@@ -429,7 +561,12 @@
                     'Authorization': `Bearer ${token}`
                 }
             })
-            const userData= (await rawResponse.json()).cars
+            const jsonData = await rawResponse.json()
+            
+            if (!rawResponse.ok) {
+                return alert(jsonData.message)
+            }
+            const userData = jsonData.users
 
             const container = document.getElementById("carContainer")
             container.innerHTML = ""
@@ -440,13 +577,205 @@
                 card.style.width = "18rem"
                 card.style.marginTop = "10px"
                 card.innerHTML = `
-                    <img src="" class="card-img-top img-fluid" style="object-fit: cover; height: 200px;" alt="">
                         <div class="card-body">
                             <span class="card-id"> ${user._id}</span>
                             <h5 class="card-title">${user.name}</h5>
-                            <h6 class="card-subtitle mb-2">Price: $${user.email}</h6>
-                            <h6 class="card-subtitle mb-2">Trade: $${user.isAdmin}</h6>
-                            <h6 class="card-subtitle mb-2">Trade: $${user.isContributor}</h6>
+                            <h6 class="card-subtitle mb-2">email: ${user.email}</h6>
+                            <h6 class="card-subtitle mb-2">isAdmin: ${user.isAdmin}</h6>
+                            <h6 class="card-subtitle mb-2">isContributor: ${user.isContributor}</h6>
+                        </div>
+                        `;
+                container.appendChild(card)
+            })
+
+
+
+        } catch (error) {
+            console.error("Error:", error);
+            alert("Error ");
+        } 
+
+    }
+    
+    function openModalCreateUser(){
+        const userModal = new bootstrap.Modal(document.getElementById("userModal"))
+        userModal.show()
+    }
+
+    async function createUser() {
+        const token = localStorage.getItem("token");
+
+        const name = document.getElementById("modalUserName").value
+        const email = document.getElementById("modalUserEmail").value
+        const password = document.getElementById("modalUserPassword").value
+        const isAdmin = document.getElementById("modalIsAdmin").value
+        const isContributor = document.getElementById("modalIsContributor").value
+
+        try {
+            if (name === "" || email === "" || password === "") {
+                return alert("You are missing information")
+            }
+
+            const rawResponse = await fetch('https://backend-carco.onrender.com/api/carco/users', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify({ name: name, email: email, password: password, isAdmin: isAdmin, isContributor: isContributor })
+            })
+
+            const userData = await rawResponse.json()
+
+            if (!rawResponse.ok) {
+                return alert(userData.message)
+            }
+            else {
+                getUsers()
+                document.getElementById("userModalF").reset();
+                return alert("User added succesfully")
+
+            }
+
+        } catch (error) {
+            console.error("Error:", error)
+            alert("Error ")
+        } 
+
+    }
+
+    function openModalUpdateUser() {
+            const userModal = new bootstrap.Modal(document.getElementById("userUpdateModal"))
+            userModal.show()
+        }
+
+    async function editUser() {
+        const token = localStorage.getItem("token");
+
+        const id = document.getElementById("modalUpdateUserId").value
+        const name = document.getElementById("modalUpdateUserName").value
+        const email = document.getElementById("modalUpdateUserEmail").value
+        const password = document.getElementById("modalUpdateUserPassword").value
+        const isAdmin = document.getElementById("modalUpdateIsAdmin").value
+        const isContributor = document.getElementById("modalUpdateIsContributor").value
+
+        const userPayload = {};
+
+        if (name !== "") userPayload.name = name;
+        if (email !== "") userPayload.email = email;
+        if (password !== "") userPayload.password = password;
+        if (isAdmin !== "") userPayload.isAdmin = isAdmin;
+        if (isContributor !== "") userPayload.isContributor = isContributor;
+
+        try {
+            
+
+            const rawResponse = await fetch(`https://backend-carco.onrender.com/api/carco/users/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(userPayload)
+            })
+
+            const userData = await rawResponse.json()
+
+            if (!rawResponse.ok) {
+                return alert(userData.message)
+            }
+            else {
+                getUsers()
+                document.getElementById("userModalF").reset();
+                return alert("User updated succesfully")
+
+            }
+
+        } catch (error) {
+            console.error("Error:", error)
+            alert("Error ")
+        } 
+
+    }
+
+    function openModalDeleteUser() {
+
+            const userModal = new bootstrap.Modal(document.getElementById("deleteUserModal"))
+            userModal.show()
+
+        }
+
+    async function deleteUser() {
+        const token = localStorage.getItem("token");
+
+        const id = document.getElementById("deleteUserModalId").value
+
+        try {
+            if (id === "") {
+                return alert("You are missing information")
+            }
+
+            const rawResponse = await fetch(`https://backend-carco.onrender.com/api/carco/users/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+
+            const userData= await rawResponse.json()
+
+            if (!rawResponse.ok) {
+                return alert(userData.message)
+            }
+            else {
+                getUsers()
+                document.getElementById("deleteUserModalF").reset();
+                return alert("User deleted succesfully")
+            }
+
+        } catch (error) {
+            console.error("Error:", error)
+            alert("Error ")
+        } 
+
+    }
+
+    //FORMS
+    async function getForms() {
+        try {
+
+            const rawResponse = await fetch("https://backend-carco.onrender.com/api/carco/forms", {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            const jsonData = await rawResponse.json()
+
+            if(!rawResponse.ok){
+                return alert(jsonData.message)
+            }
+            const formsData = jsonData.forms
+
+            const container = document.getElementById("carContainer")
+            container.innerHTML = ""
+
+            formsData.forEach(form => {
+                const card = document.createElement("div")
+                card.className = "card col-12 col-md-4"
+                card.style.width = "18rem"
+                card.style.marginTop = "10px"
+                card.innerHTML = `
+                        <div class="card-body">
+                            <span class="card-id"> ${form._id}</span>
+                            <h5 class="card-title">${form.firstName}</h5>
+                            <h6 class="card-subtitle mb-2">Last Name: ${form.lastName}</h6>
+                            <h6 class="card-subtitle mb-2">Address: ${form.address}</h6>
+                            <h6 class="card-subtitle mb-2">Email: ${form.email}</h6>
+                            <h6 class="card-subtitle mb-2">Phone: ${form.phone}</h6>
+                            <span class="card-text mb-2">Info: ${form.info}</span>
                         </div>
                         `;
                 container.appendChild(card)
@@ -460,24 +789,46 @@
 
     }
 
-    async function createUser() {
+    function openModalDeleteForms() {
 
-    }
+            const formsModal = new bootstrap.Modal(document.getElementById("deleteFormsModal"))
+            formsModal.show()
 
-    async function editUser() {
-
-    }
-
-    async function deleteUser() {
-
-    }
-
-    //FORMS
-    async function getForms() {
-
-    }
+        }
 
     async function deleteForms() {
+        const token = localStorage.getItem("token");
+
+        const id = document.getElementById("deleteFormsModalId").value
+
+        try {
+            if (id === "") {
+                return alert("You are missing information")
+            }
+
+            const rawResponse = await fetch(`https://backend-carco.onrender.com/api/carco/forms/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+
+            const formsData = await rawResponse.json()
+
+            if (!rawResponse.ok) {
+                return alert(formsData.message)
+            }
+            else {
+                getForms()
+                document.getElementById("deleteFormsModalF").reset();
+                return alert("Form deleted succesfully")
+            }
+
+        } catch (error) {
+            console.error("Error:", error)
+            alert("Error ")
+        } 
 
     }
 
